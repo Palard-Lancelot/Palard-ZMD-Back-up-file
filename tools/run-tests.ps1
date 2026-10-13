@@ -34,13 +34,19 @@ Write-Host ''
 $env:DSH_SKIP_BOOT_QUIT = '1'
 
 $suites = @(
-    @{ name = '键位绑定';   script = 'res://tests/test_input_map.gd' },
-    @{ name = '移动物理';   script = 'res://tests/test_movement.gd' },
-    @{ name = '攻击系统';   script = 'res://tests/test_attack.gd' },
-    @{ name = '冲刺与受击'; script = 'res://tests/test_dash_hurt.gd' },
-    @{ name = '相机跟随';   script = 'res://tests/test_camera.gd' },
-    @{ name = '敌人攻击';   script = 'res://tests/test_enemy_attack.gd' }
+    @{ name = '键位绑定';   script = 'res://tests/test_input_map.gd';    isolate = $false },
+    @{ name = '移动物理';   script = 'res://tests/test_movement.gd';     isolate = $true  },
+    @{ name = '攻击系统';   script = 'res://tests/test_attack.gd';       isolate = $true  },
+    @{ name = '冲刺与受击'; script = 'res://tests/test_dash_hurt.gd';    isolate = $true  },
+    @{ name = '相机跟随';   script = 'res://tests/test_camera.gd';       isolate = $true  },
+    @{ name = '敌人攻击';   script = 'res://tests/test_enemy_attack.gd'; isolate = $false },
+    @{ name = '敌人 AI';    script = 'res://tests/test_enemy_ai.gd';     isolate = $false }
 )
+
+# 说明：isolate = $true 的套件会设置 PALARD_ISOLATE=1，
+# 让 test_level.gd 清除关卡内所有敌人，避免被其他敌人的 AI 干扰
+# （例如冲锋兵会追过来打断攻击连击测试）。
+# 验证敌人行为的套件必须 isolate = $false。
 
 $summary = @()
 $allPass = $true
@@ -49,6 +55,8 @@ foreach ($s in $suites) {
     Write-Host ('-' * 62)
     Write-Host ('  [' + $s.name + '] ' + $s.script)
     Write-Host ('-' * 62)
+
+    if ($s.isolate) { $env:PALARD_ISOLATE = '1' } else { $env:PALARD_ISOLATE = '0' }
 
     Push-Location $PROJDIR
     $out = & $GODOT --headless --path . --script $s.script 2>&1 | Out-String
