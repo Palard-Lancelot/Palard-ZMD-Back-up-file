@@ -40,6 +40,38 @@ Palard-ZMD/
 
 ---
 
+## ⚠️ 版本控制：两个独立仓库
+
+本项目**刻意使用两个 git 仓库**，互不干扰：
+
+| 仓库 | 位置 | 管什么 | 说明 |
+|---|---|---|---|
+| **根仓库** | `Palard-ZMD/.git` | `Documents/` + `tools/` + `README.md` | 设计文档与工具 |
+| **代码仓库** | `Palard-ZMD/project/.git` | Godot 代码 | 保留完整提交历史 |
+
+**为什么分开**：文档与代码的变更节奏不同。改玩法时先改 `DESIGN.md`（根仓库），
+再改代码（代码仓库），两者分开提交更清晰。
+
+根仓库的 `.gitignore` 已忽略 `project/`，所以不会出现嵌套仓库的混乱。
+
+### 提交方式
+
+```powershell
+# 提交设计文档变更（根仓库）
+cd C:\Users\ASUS\Desktop\Palard-ZMD
+git add -A && git commit -m "docs: ..."
+
+# 提交代码变更（代码仓库）
+cd C:\Users\ASUS\Desktop\Palard-ZMD\project
+git add -A && git commit -m "feat: ..."
+```
+
+> ⚠️ **两个仓库都设了 `core.autocrlf = false` 且用 `.gitattributes` 强制 LF**。
+> 不要改成 `true` —— `DESIGN.md` 这类高频 diff 的文件会因换行符漂移
+> 每次显示"整个文件被修改"，污染历史。
+
+---
+
 ## 快速开始
 
 ### 打开项目
