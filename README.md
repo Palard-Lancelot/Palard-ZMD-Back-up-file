@@ -108,13 +108,14 @@ powershell -NoProfile -ExecutionPolicy Bypass -File "C:\Users\ASUS\Desktop\Palar
 powershell -NoProfile -ExecutionPolicy Bypass -File "C:\Users\ASUS\Desktop\Palard-ZMD\tools\run-tests.ps1"
 ```
 
-当前 3 个测试套件，共 21 项断言：
+当前 4 个测试套件，共 30 项断言：
 
 | 套件 | 覆盖 | 断言数 |
 |---|---|---|
 | 键位绑定 | 7 个动作的物理键码与设计一致 | 7 |
 | 移动物理 | 落地精度 / 跳跃高度 / 最大速度 | 8 |
 | 攻击系统 | 三段连击 / 伤害 / 顿帧 / 回位 | 6 |
+| 冲刺与受击 | 冲刺位移 / 无敌免疫 / 扣血 / 硬直 / 受击无敌 | 9 |
 
 ---
 
@@ -125,7 +126,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File "C:\Users\ASUS\Desktop\Palar
 | 移动 | `W` `A` `S` `D` 或方向键 |
 | 跳跃 | `Space` |
 | 攻击 | `J` |
-| 冲刺 | `K`（任务 0.9 实装） |
+| 冲刺（带无敌帧） | `L` |
 | 调参面板 | `F1` |
 | 面板内保存 / 重置 | `F5` / `R` |
 | 重生 | `R` |
