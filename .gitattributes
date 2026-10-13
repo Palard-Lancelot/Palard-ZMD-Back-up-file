@@ -1,0 +1,24 @@
+# 根仓库 .gitattributes
+#
+# 统一 LF。原因：DESIGN.md / PROGRESS.md 会频繁 diff，
+# 若换行符随平台漂移，每次都会显示"整个文件被修改"，污染 Git 历史。
+#
+# 注意：gitattributes 的规则是「后面的覆盖前面的」，所以二进制规则放最后。
+
+* text=auto eol=lf
+
+*.md    text eol=lf
+*.ps1   text eol=lf
+*.txt   text eol=lf
+*.json  text eol=lf
+*.yml   text eol=lf
+*.yaml  text eol=lf
+.gitignore    text eol=lf
+.gitattributes text eol=lf
+
+# 二进制
+*.png   binary
+*.jpg   binary
+*.pdf   binary
+*.zip   binary
+*.exe   binary

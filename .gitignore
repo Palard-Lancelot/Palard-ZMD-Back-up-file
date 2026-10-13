@@ -1,0 +1,21 @@
+# Palard-ZMD 根仓库 .gitignore
+#
+# 本仓库只管 Documents/ 与 tools/（设计文档 + 工具）。
+# Godot 代码在 project/ 子目录里，有**自己独立的 git 仓库**（保留完整提交历史）。
+# 两个仓库互不干扰是刻意设计：文档变更与代码变更的节奏不同。
+
+# ---- Godot 项目有自己的仓库，根仓库完全忽略它 ----
+project/
+
+# ---- 临时文件 ----
+*.tmp
+*.bak
+*~
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# ---- 编辑器 ----
+.vscode/
+.idea/
+*.swp
