@@ -37,7 +37,8 @@ $suites = @(
     @{ name = '键位绑定';   script = 'res://tests/test_input_map.gd' },
     @{ name = '移动物理';   script = 'res://tests/test_movement.gd' },
     @{ name = '攻击系统';   script = 'res://tests/test_attack.gd' },
-    @{ name = '冲刺与受击'; script = 'res://tests/test_dash_hurt.gd' }
+    @{ name = '冲刺与受击'; script = 'res://tests/test_dash_hurt.gd' },
+    @{ name = '相机跟随';   script = 'res://tests/test_camera.gd' }
 )
 
 $summary = @()
