@@ -109,11 +109,12 @@ powershell -NoProfile -ExecutionPolicy Bypass -File "C:\Users\ASUS\Desktop\Palar
 | 动作 | 按键 |
 |---|---|
 | 移动 | `W` `A` `S` `D` 或方向键 |
-| 跳跃 | `Space` 或 `J` |
-| 攻击 | `L` |
-| 冲刺 | `K` |
+| 跳跃 | `Space` |
+| 攻击 | `J` |
+| 冲刺 | `K`（任务 0.9 实装） |
 | 调参面板 | `F1` |
 | 面板内保存 / 重置 | `F5` / `R` |
+| 重生 | `R` |
 | 退出 | `Esc` |
 
 ---
