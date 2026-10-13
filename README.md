@@ -1,4 +1,4 @@
-# Palard-ZMD
+﻿# Palard-ZMD
 
 > 以《明日方舟：终末地》为背景的 **2D 横板肉鸽闯关游戏**
 > 对标 Dead Cells，单人开发 · 每周 15 小时 · 工期不限
@@ -108,7 +108,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File "C:\Users\ASUS\Desktop\Palar
 powershell -NoProfile -ExecutionPolicy Bypass -File "C:\Users\ASUS\Desktop\Palard-ZMD\tools\run-tests.ps1"
 ```
 
-当前 5 个测试套件，共 36 项断言：
+当前 6 个测试套件，共 40 项断言：
 
 | 套件 | 覆盖 | 断言数 |
 |---|---|---|
@@ -117,6 +117,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File "C:\Users\ASUS\Desktop\Palar
 | 攻击系统 | 三段连击 / 伤害 / 顿帧 / 回位 | 6 |
 | 冲刺与受击 | 冲刺位移 / 无敌免疫 / 扣血 / 硬直 / 受击无敌 | 9 |
 | 相机跟随 | 唯一相机 / 死区内不动 / 超出后迅速跟上 | 6 |
+| 敌人攻击 | 集成验证：前摇 → 攻击盒 → 玩家实际掉血 | 4 |
 
 ---
 
