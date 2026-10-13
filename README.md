@@ -102,6 +102,20 @@ git add -A && git commit -m "feat: ..."
 powershell -NoProfile -ExecutionPolicy Bypass -File "C:\Users\ASUS\Desktop\Palard-ZMD\tools\check-progress.ps1"
 ```
 
+### 跑全部测试
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File "C:\Users\ASUS\Desktop\Palard-ZMD\tools\run-tests.ps1"
+```
+
+当前 3 个测试套件，共 21 项断言：
+
+| 套件 | 覆盖 | 断言数 |
+|---|---|---|
+| 键位绑定 | 7 个动作的物理键码与设计一致 | 7 |
+| 移动物理 | 落地精度 / 跳跃高度 / 最大速度 | 8 |
+| 攻击系统 | 三段连击 / 伤害 / 顿帧 / 回位 | 6 |
+
 ---
 
 ## 操作键位
