@@ -41,7 +41,8 @@ $suites = @(
     @{ name = '相机跟随';   script = 'res://tests/test_camera.gd';       isolate = $true  },
     @{ name = '敌人攻击';   script = 'res://tests/test_enemy_attack.gd'; isolate = $false },
     @{ name = '敌人 AI';    script = 'res://tests/test_enemy_ai.gd';     isolate = $false },
-    @{ name = '战斗闭环';   script = 'res://tests/test_combat_loop.gd';   isolate = $true  }
+    @{ name = '战斗闭环';   script = 'res://tests/test_combat_loop.gd';   isolate = $true  },
+    @{ name = '连通图验证'; script = 'res://tests/test_room_graph.gd';   isolate = $false }
 )
 
 # 说明：isolate = $true 的套件会设置 PALARD_ISOLATE=1，
