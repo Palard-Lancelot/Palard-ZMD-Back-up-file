@@ -108,7 +108,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File "C:\Users\ASUS\Desktop\Palar
 powershell -NoProfile -ExecutionPolicy Bypass -File "C:\Users\ASUS\Desktop\Palard-ZMD\tools\run-tests.ps1"
 ```
 
-当前 7 个测试套件，共 48 项断言：
+当前 8 个测试套件，共 57 项断言：
 
 | 套件 | 覆盖 | 断言数 |
 |---|---|---|
@@ -119,6 +119,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File "C:\Users\ASUS\Desktop\Palar
 | 相机跟随 | 唯一相机 / 死区内不动 / 超出后迅速跟上 | 6 |
 | 敌人攻击 | 集成验证：前摇 → 攻击盒 → 玩家实际掉血 | 4 |
 | 敌人 AI | 主动追击 / 前摇 / 攻击 / 逃跑时不被甩开 | 8 |
+| 战斗闭环 | 击杀计数 / 死亡结算 / 重开重置 / 清场 | 9 |
 
 ---
 
