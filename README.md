@@ -119,7 +119,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File "C:\Users\ASUS\Desktop\Palar
 powershell -NoProfile -ExecutionPolicy Bypass -File "C:\Users\ASUS\Desktop\Palard-ZMD\tools\run-tests.ps1"
 ```
 
-当前 10 个测试套件，共 66 项断言：
+当前 12 个测试套件，共 72 项断言：
 
 | 套件 | 覆盖 | 断言数 |
 |---|---|---|
@@ -133,6 +133,8 @@ powershell -NoProfile -ExecutionPolicy Bypass -File "C:\Users\ASUS\Desktop\Palar
 | 战斗闭环 | 击杀计数 / 死亡结算 / 重开重置 / 清场 | 9 |
 | 连通图验证 | 1000 种子：连通性 / 环路 / 捷径 / 规模 | 4 |
 | 生成关卡 | 门洞可通行 / 相机覆盖 / 跨越房间边界 | 5 |
+| 关卡几何 | 射线检测每条图边，图论连通→几何可通行 | 4 |
+| 垂直攀爬 | 真的让角色跳，验证能爬上一整层 | 2 |
 
 ---
 

@@ -43,7 +43,9 @@ $suites = @(
     @{ name = '敌人 AI';    script = 'res://tests/test_enemy_ai.gd';     isolate = $false },
     @{ name = '战斗闭环';   script = 'res://tests/test_combat_loop.gd';   isolate = $true  },
     @{ name = '连通图验证'; script = 'res://tests/test_room_graph.gd';   isolate = $false },
-    @{ name = '生成关卡';   script = 'res://tests/test_generated_level.gd'; isolate = $false }
+    @{ name = '生成关卡';   script = 'res://tests/test_generated_level.gd'; isolate = $false },
+    @{ name = '关卡几何';   script = 'res://tests/test_level_geometry.gd'; isolate = $false },
+    @{ name = '垂直攀爬';   script = 'res://tests/test_vertical_climb.gd'; isolate = $false }
 )
 
 # 说明：isolate = $true 的套件会设置 PALARD_ISOLATE=1，
