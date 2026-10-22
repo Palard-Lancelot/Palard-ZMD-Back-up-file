@@ -43,14 +43,21 @@ $suites = @(
     @{ name = '敌人 AI';    script = 'res://tests/test_enemy_ai.gd';     isolate = $false },
     @{ name = '战斗闭环';   script = 'res://tests/test_combat_loop.gd';   isolate = $true  },
     @{ name = '连通图验证'; script = 'res://tests/test_room_graph.gd';   isolate = $false },
-    @{ name = '生成关卡';   script = 'res://tests/test_generated_level.gd'; isolate = $false },
+    @{ name = '生成关卡';   script = 'res://tests/test_generated_level.gd'; isolate = $true  },
     @{ name = '关卡几何';   script = 'res://tests/test_level_geometry.gd'; isolate = $false },
-    @{ name = '垂直攀爬';   script = 'res://tests/test_vertical_climb.gd'; isolate = $false }
+    @{ name = '垂直攀爬';   script = 'res://tests/test_vertical_climb.gd'; isolate = $true  }
 )
 
 # 说明：isolate = $true 的套件会设置 PALARD_ISOLATE=1，
-# 让 test_level.gd 清除关卡内所有敌人，避免被其他敌人的 AI 干扰
+# 冻结关卡内所有敌人（AI + 攻击盒），避免被敌人的 AI 干扰
 # （例如冲锋兵会追过来打断攻击连击测试）。
+#
+# ⚠️ 这个变量必须由**每个关卡脚本各自实现**。曾经只有 test_level.gd 实现了，
+#    generated_level.gd 不看它 —— 于是几何类测试里敌人全是活的，
+#    跑几十秒游戏时间足够把玩家打死，玩家一进 DEAD 状态就再也跳不起来，
+#    测试报出来是"这一组完全没起跳"，看着像几何 bug。
+#    现在两个关卡脚本都认这个变量。
+#
 # 验证敌人行为的套件必须 isolate = $false。
 
 $summary = @()
