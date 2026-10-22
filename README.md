@@ -84,8 +84,19 @@ git add -A && git commit -m "feat: ..."
 
 ### 运行游戏
 
+**两种关卡：**
+
+| 关卡 | 启动方式 | 用途 |
+|---|---|---|
+| **手写测试关** | 直接运行项目 | 布局固定，供自动化测试使用 |
+| **程序化生成关** | 桌面「Palard-ZMD 生成关卡」 | 每按 `R` 换一层，验证层内连通可回退 |
+
 ```powershell
+# 手写测试关（默认主场景）
 & "$env:LOCALAPPDATA\Programs\Godot\4.7.2\Godot_v4.7.2-stable_win64.exe" --path "C:\Users\ASUS\Desktop\Palard-ZMD\project"
+
+# 程序化生成关
+& "$env:LOCALAPPDATA\Programs\Godot\4.7.2\Godot_v4.7.2-stable_win64.exe" --path "C:\Users\ASUS\Desktop\Palard-ZMD\project" res://scenes/world/generated_level.tscn
 ```
 
 ### 命令行自检（不开窗口）
@@ -108,7 +119,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File "C:\Users\ASUS\Desktop\Palar
 powershell -NoProfile -ExecutionPolicy Bypass -File "C:\Users\ASUS\Desktop\Palard-ZMD\tools\run-tests.ps1"
 ```
 
-当前 9 个测试套件，共 61 项断言：
+当前 10 个测试套件，共 66 项断言：
 
 | 套件 | 覆盖 | 断言数 |
 |---|---|---|
@@ -121,6 +132,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File "C:\Users\ASUS\Desktop\Palar
 | 敌人 AI | 主动追击 / 前摇 / 攻击 / 逃跑时不被甩开 | 8 |
 | 战斗闭环 | 击杀计数 / 死亡结算 / 重开重置 / 清场 | 9 |
 | 连通图验证 | 1000 种子：连通性 / 环路 / 捷径 / 规模 | 4 |
+| 生成关卡 | 门洞可通行 / 相机覆盖 / 跨越房间边界 | 5 |
 
 ---
 
