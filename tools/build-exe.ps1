@@ -18,7 +18,9 @@ $ErrorActionPreference = 'Continue'
 
 $ROOT    = Split-Path -Parent $PSScriptRoot
 $PROJDIR = Join-Path $ROOT 'project'
-$GODOT   = Join-Path $env:LOCALAPPDATA 'Programs\Godot\4.7.2\Godot_v4.7.2-stable_win64.exe'
+# ⚠️ 用 console 版：主程序是 GUI 子系统，被管道捕获时拿不到 stdout 且可能卡住；
+#    console 版输出稳定，导出日志里的 ERROR 行才看得见。
+$GODOT   = Join-Path $env:LOCALAPPDATA 'Programs\Godot\4.7.2\Godot_v4.7.2-stable_win64_console.exe'
 
 $TPL_VER = '4.7.2.stable'
 $TPL_DIR  = Join-Path $env:APPDATA ('Godot\export_templates\' + $TPL_VER)

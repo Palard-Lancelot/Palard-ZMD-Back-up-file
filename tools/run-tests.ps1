@@ -8,9 +8,19 @@
 
 $ErrorActionPreference = 'Continue'
 
+# Godot 输出是 UTF-8；Windows PowerShell 5.1 默认按 GBK 解码子进程输出，
+# 结果中文全变乱码，连 "结果: x / y 通过" 的正则都匹配不到（汇总列全是"未识别"）。
+# 强制控制台按 UTF-8 解码。
+[Console]::OutputEncoding = New-Object System.Text.UTF8Encoding($false)
+$OutputEncoding = New-Object System.Text.UTF8Encoding($false)
+
 $ROOT = Split-Path -Parent $PSScriptRoot
 $PROJDIR = Join-Path $ROOT 'project'
-$GODOT = Join-Path $env:LOCALAPPDATA 'Programs\Godot\4.7.2\Godot_v4.7.2-stable_win64.exe'
+# ⚠️ 必须用 **_console.exe**：主程序是 Windows GUI 子系统，
+#    被调用方用管道捕获输出时（例如 `run-tests.ps1 | tee log.txt`
+#    或从 CI/别的脚本里调用）拿不到 stdout，PowerShell 会**一直等下去**。
+#    console 版是官方的控制台薄壳，输出稳定可捕获。
+$GODOT = Join-Path $env:LOCALAPPDATA 'Programs\Godot\4.7.2\Godot_v4.7.2-stable_win64_console.exe'
 
 if (-not (Test-Path $GODOT)) {
     Write-Host "[ERROR] 找不到 Godot: $GODOT"
@@ -45,7 +55,8 @@ $suites = @(
     @{ name = '连通图验证'; script = 'res://tests/test_room_graph.gd';   isolate = $false },
     @{ name = '生成关卡';   script = 'res://tests/test_generated_level.gd'; isolate = $true  },
     @{ name = '关卡几何';   script = 'res://tests/test_level_geometry.gd'; isolate = $false },
-    @{ name = '垂直攀爬';   script = 'res://tests/test_vertical_climb.gd'; isolate = $true  }
+    @{ name = '垂直攀爬';   script = 'res://tests/test_vertical_climb.gd'; isolate = $true  },
+    @{ name = '单向平台下穿'; script = 'res://tests/test_drop_through.gd'; isolate = $false }
 )
 
 # 说明：isolate = $true 的套件会设置 PALARD_ISOLATE=1，

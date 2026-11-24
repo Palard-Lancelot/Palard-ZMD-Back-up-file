@@ -16,9 +16,12 @@ Palard-ZMD/
 │   ├── .gitignore               ← 首行 .gdignore，防 Godot 导入 .git 内部文件
 │   ├── .gitattributes           ← 强制 LF，正确声明二进制资产
 │   ├── scenes/
-│   │   ├── boot/boot.tscn       ← 启动场景
+│   │   ├── menu/main_menu.tscn  ← **主场景**：选关（随机层 / 手写关）
+│   │   ├── boot/boot.tscn       ← 手写测试关
+│   │   ├── world/generated_level.tscn  ← 随机生成层
 │   │   └── debug/debug_panel.tscn
 │   └── scripts/
+│       ├── menu/main_menu.gd    ← 启动菜单
 │       ├── boot/boot.gd
 │       ├── config/feel_config.gd    ← 手感参数（39 个数值参数 + 2 调试开关）
 │       └── debug/debug_panel.gd     ← 实时调参面板
@@ -86,18 +89,19 @@ git add -A && git commit -m "feat: ..."
 
 ### 运行游戏
 
-**两种关卡：**
+**两种关卡，由启动菜单选择：**
 
-| 关卡 | 启动方式 | 用途 |
+| 关卡 | 菜单 | 用途 |
 |---|---|---|
-| **手写测试关** | 直接运行项目 | 布局固定，供自动化测试使用 |
-| **程序化生成关** | 桌面「Palard-ZMD 生成关卡」 | 每按 `R` 换一层，验证层内连通可回退 |
+| **随机生成层** | `1` | 每按 `R` 换一层；验证层内连通可回退 + 竖井攀爬 / `W`+`Space` 下穿 |
+| **手写测试关** | `2` | 布局固定，供自动化测试使用；清光 9 个敌人 |
 
 ```powershell
-# 手写测试关（默认主场景）
+# 启动菜单（默认主场景）
 & "$env:LOCALAPPDATA\Programs\Godot\4.7.2\Godot_v4.7.2-stable_win64.exe" --path "C:\Users\ASUS\Desktop\Palard-ZMD\project"
 
-# 程序化生成关
+# 跳过菜单直接进某一关（自动化 / 调试用）
+& "$env:LOCALAPPDATA\Programs\Godot\4.7.2\Godot_v4.7.2-stable_win64.exe" --path "C:\Users\ASUS\Desktop\Palard-ZMD\project" res://scenes/boot/boot.tscn
 & "$env:LOCALAPPDATA\Programs\Godot\4.7.2\Godot_v4.7.2-stable_win64.exe" --path "C:\Users\ASUS\Desktop\Palard-ZMD\project" res://scenes/world/generated_level.tscn
 ```
 
@@ -107,7 +111,7 @@ git add -A && git commit -m "feat: ..."
 & "$env:LOCALAPPDATA\Programs\Godot\4.7.2\Godot_v4.7.2-stable_win64.exe" --headless --path "C:\Users\ASUS\Desktop\Palard-ZMD\project" --quit-after 300
 ```
 
-期望输出末尾：`参数自洽性检查：通过 ✓`
+期望输出末尾：`参数自洽性检查：通过 ✓`（自 v1.3 起由启动菜单打印，带 `[MENU]` 前缀）
 
 ### 每周巡检
 
@@ -121,7 +125,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File "C:\Users\ASUS\Desktop\Palar
 powershell -NoProfile -ExecutionPolicy Bypass -File "C:\Users\ASUS\Desktop\Palard-ZMD\tools\run-tests.ps1"
 ```
 
-当前 12 个测试套件，共 72 项断言：
+当前 13 个测试套件，共 78 项断言：
 
 | 套件 | 覆盖 | 断言数 |
 |---|---|---|
@@ -137,6 +141,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File "C:\Users\ASUS\Desktop\Palar
 | 生成关卡 | 门洞可通行 / 相机覆盖 / 跨越房间边界 | 5 |
 | 关卡几何 | 射线检测每条图边，图论连通→几何可通行 | 4 |
 | 垂直攀爬 | 真的让角色跳；判据是**站进上层房间**，不是"到过某个高度" | 2 |
+| 单向平台下穿 | `W`+`Space` 从单向平台落下；实心地不穿透；跳跃不被吃掉 | 6 |
 
 ### 打包 exe（发给试玩者）
 
@@ -158,12 +163,14 @@ powershell -NoProfile -ExecutionPolicy Bypass -File "C:\Users\ASUS\Desktop\Palar
 |---|---|
 | 移动 | `W` `A` `S` `D` 或方向键 |
 | 跳跃 | `Space` |
+| **下穿单向平台** | **`W` + `Space`**（仅竖井攀爬台阶这类单向平台生效） |
 | 攻击 | `J` |
 | 冲刺（带无敌帧） | `L` |
 | 调参面板 | `F1` |
 | 面板内保存 / 重置 | `F5` / `R` |
+| 换一层（随机层） | `R` |
 | 重生 | `R` |
-| 退出 | `Esc` |
+| 返回启动菜单 | `Esc`（在菜单里再按 `Esc` 退出游戏） |
 
 ---
 
