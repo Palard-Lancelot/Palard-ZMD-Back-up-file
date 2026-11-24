@@ -20,7 +20,7 @@ Palard-ZMD/
 │   │   └── debug/debug_panel.tscn
 │   └── scripts/
 │       ├── boot/boot.gd
-│       ├── config/feel_config.gd    ← 手感参数（35 个可调项）
+│       ├── config/feel_config.gd    ← 手感参数（39 个数值参数 + 2 调试开关）
 │       └── debug/debug_panel.gd     ← 实时调参面板
 │
 ├── Documents/
@@ -161,7 +161,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File "C:\Users\ASUS\Desktop\Palar
 |---|---|---|
 | 0.1 | 项目骨架 + Git | ✅ |
 | 0.2 | 输入映射 | ✅ |
-| 0.3 | `FeelConfig`（40 参数） | ✅ |
+| 0.3 | `FeelConfig`（39 参数） | ✅ |
 | 0.4 | 实时调参面板 | ✅ |
 | 0.5 | 玩家移动 | ✅ |
 | 0.6 | 玩家状态机 | ✅ |
