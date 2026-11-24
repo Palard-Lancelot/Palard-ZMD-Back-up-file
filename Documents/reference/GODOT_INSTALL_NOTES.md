@@ -86,8 +86,55 @@ Nearest 纹理过滤），已用 `--headless` 跑通全链路：
 
 它目前只是个冒烟测试，还没有游戏骨架。
 
+## 导出模板（2026-11-24 已安装）
+
+| 项 | 值 |
+|---|---|
+| 版本 | `4.7.2.stable` |
+| 包文件 | `Godot_v4.7.2-stable_export_templates.tpz` |
+| 大小 | **1,281,349,702 字节**（约 1.28 GB） |
+| SHA-512 | `ca4d71c4d7b81dfc15d1a98baa07534aa95b03fdda78a0075b06672e1648d2e5f40980c9adc28d23e1b92e732ee7bf3461997aa804af74ec2fcd7a93ccb84079` |
+| 校验来源 | `SHA512-SUMS.txt`（GitHub release 资产；`downloads.godotengine.org` 跳转域**不提供**该文件） |
+| 安装目录 | `%APPDATA%\Godot\export_templates\4.7.2.stable\`（35 个文件，含 `version.txt`） |
+
+**安装方法（换机器可照做）**：
+
+```powershell
+# 1. 下载（gh-proxy 加速，约 1.28 GB）
+curl -L --retry 6 -C - -o "$env:TEMP\tpz.tpz" `
+  "https://gh-proxy.com/https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_export_templates.tpz"
+
+# 2. 校验 SHA-512（必须与上表一致）
+Get-FileHash "$env:TEMP\tpz.tpz" -Algorithm SHA512 | Format-List
+
+# 3. 解压并归位（注意：.tpz 内层目录名是 templates/，要剥掉这一层）
+Expand-Archive "$env:TEMP\tpz.tpz" -DestinationPath "$env:TEMP\tpz"
+New-Item -ItemType Directory -Force "$env:APPDATA\Godot\export_templates\4.7.2.stable" | Out-Null
+Copy-Item "$env:TEMP\tpz\templates\*" "$env:APPDATA\Godot\export_templates\4.7.2.stable\" -Recurse -Force
+```
+
+**打包 exe**：跑 `tools\build-exe.ps1`（已封装导出命令与前置检查）。
+
+```powershell
+# 等价命令（脚本内部就是这个）
+& "$env:LOCALAPPDATA\Programs\Godot\4.7.2\Godot_v4.7.2-stable_win64.exe" `
+  --headless --path "C:\Users\ASUS\Desktop\Palard-ZMD\project" `
+  --export-release "Windows Desktop" "build\windows\Palard.zmd.exe"
+```
+
+**踩坑记录**：
+
+| 坑 | 现象 | 解法 |
+|---|---|---|
+| `.tpz` 内层还有一层 `templates/` | 直接解压到版本目录 → Godot 找不到模板 | 把 `templates/` 的**内容**拷进 `4.7.2.stable\` |
+| 版本目录名要靠 `version.txt` 定 | 猜 `4.7.stable` 会失败 | 解压后 `cat templates/version.txt` → `4.7.2.stable` |
+| 下载会中途断流 | `Recv failure: Connection was reset` | `curl -C -` 续传 + `--retry`；最终大小必须等于 1,281,349,702 |
+| 默认 `export_filter` 会把测试脚本打进包 | 包内出现 `res://tests/*.remap` | 预设里设 `exclude_filter="tests/*"` |
+
 ## 还没做
 
-- [ ] 下载**导出模板**（打 exe 给朋友玩才需要）：编辑器 → `编辑器` → `管理导出模板`
-- [ ] Git 初始化 + `.gitignore` / `.gitattributes`
-- [ ] 游戏项目骨架（状态机、数据驱动道具系统、实时调参面板）
+- [x] 下载**导出模板**（打 exe 给朋友玩才需要）—— 2026-11-24 完成
+- [x] Git 初始化 + `.gitignore` / `.gitattributes` —— 已完成（根仓库 + 代码仓库双仓）
+- [x] 游戏项目骨架（状态机、数据驱动道具系统、实时调参面板）—— 阶段 0 已完成 12/13
+- [ ] **远端备份**（两仓库目前只在本地，无任何备份）
+- [ ] 导出的 exe 目前只有手写测试关，没有进入随机生成关卡的入口

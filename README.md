@@ -35,7 +35,9 @@ Palard-ZMD/
 │   └── _archive_vscode-buffer-20261013.md
 │
 └── tools/
-    └── check-progress.ps1       ← 只读巡检脚本（每周复盘跑一次）
+    ├── check-progress.ps1       ← 只读巡检脚本（每周复盘跑一次）
+    ├── run-tests.ps1            ← 一键跑全部测试套件
+    └── build-exe.ps1            ← 一键打包 Windows exe
 ```
 
 ---
@@ -135,6 +137,18 @@ powershell -NoProfile -ExecutionPolicy Bypass -File "C:\Users\ASUS\Desktop\Palar
 | 生成关卡 | 门洞可通行 / 相机覆盖 / 跨越房间边界 | 5 |
 | 关卡几何 | 射线检测每条图边，图论连通→几何可通行 | 4 |
 | 垂直攀爬 | 真的让角色跳；判据是**站进上层房间**，不是"到过某个高度" | 2 |
+
+### 打包 exe（发给试玩者）
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File "C:\Users\ASUS\Desktop\Palard-ZMD\tools\build-exe.ps1"
+```
+
+产物：`project\build\windows\Palard.zmd.exe`（单文件，PCK 内嵌，约 104 MB，
+**只需拷这一个文件**，对方无需安装 Godot）。
+
+> 前置条件：已安装 4.7.2 导出模板（本机已装，见 `GODOT_INSTALL_NOTES.md`）。
+> `build/` 与 `export_presets.cfg` 都在 `.gitignore` 里，打包不会污染仓库。
 
 ---
 
